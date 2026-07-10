@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJJ Sparring Timer</title>
+
+    <style>
+        body {
+            font-size: 40px;
+            padding: 25px;
+            color: blue;
+            margin: 10px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 25px;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #timer {
+            font-size: 80px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>BJJ Sparring Timer</h1>
+
+    <h2 id="timer">05:00</h2>
+
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="pauseTimer()">Pause Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+
+
+    <script>
+
+        let timeLeft = 300; // 5 minutes in seconds
+        let timer;
+        let timerRunning = false;
+
+
+        function startTimer() {
+
+            // Stop multiple timers being created
+            if (timerRunning) {
+                return;
+            }
+
+            timerRunning = true;
+
+
+            timer = setInterval(function () {
+
+                timeLeft--;
+
+
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+
+
+                document.getElementById("timer").innerHTML =
+                    minutes + ":" + seconds;
+
+
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timer);
+
+                    timerRunning = false;
+
+                    alert("🥋 ROUND OVER!");
+
+                }
+
+
+            }, 1000);
+
+        }
+
+
+
+        function pauseTimer() {
+
+            clearInterval(timer);
+
+            timerRunning = false;
+
+        }
+
+
+
+        function resetTimer() {
+
+            clearInterval(timer);
+
+            timerRunning = false;
+
+            timeLeft = 300;
+
+
+            document.getElementById("timer").innerHTML = "05:00";
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
